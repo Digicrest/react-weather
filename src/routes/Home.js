@@ -1,35 +1,30 @@
 import React, { useState, useEffect } from 'react'
-import { HomeOutlined } from '@material-ui/icons'
 import { Button, makeStyles } from '@material-ui/core'
+import TinyWeatherTile from '../components/TinyWeatherTile';
 
-function Home({ openWeather }) {
-  const [weather, setWeather] = useState(null)
-
+function Home({ weather, onUpdateWeather, onUpdateLocation }) {
   const classes = useStyles();
-
-  function updateWeather() {
-    openWeather.getWeather().then(setWeather)
-  }
+  const [time, setTime] = useState(new Date())
 
   useEffect(() => {
-    if (weather) {
-      console.log('weather: ', weather)
-      const date = new Date(Date(weather.sys.sunrise))
-      console.log(date)
+    const trackTime = setInterval(() => setTime(new Date()), 1000)
+    return () => {
+      clearInterval(trackTime)
     }
-  }, [weather])
+  }, [])
 
   return (
     <div className={classes.root}>
-      <header className={classes.header}>
-        <HomeOutlined fontSize="large" />
-        <Button onClick={updateWeather}>
+      <div className={classes.header}>
+        <Button onClick={onUpdateLocation}>
+          Set Location
+        </Button>
+        <Button onClick={onUpdateWeather}>
           {weather ? 'Update' : 'Fetch'} Weather
         </Button>
-      </header>
-
+      </div>
       <div className={classes.content}>
-
+        <TinyWeatherTile weather={weather} time={time} />
       </div>
     </div>
   )
@@ -39,15 +34,22 @@ export default Home
 
 const useStyles = makeStyles(theme => ({
   root: {
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    padding: theme.spacing(2)
   },
   header: {
-    backgroundColor: '#f00'
+    flex: 1,
+    minHeight: 100,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    boxShadow: theme.shadows[1]
   },
   content: {
-
+    flex: 10,
+    height: '100%',
+    display: 'flex',
+    flexWrap: 'wrap'
   }
 }))

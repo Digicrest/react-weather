@@ -38,8 +38,12 @@ export default class OpenWeather {
       this.location = DEFAULT_LOCATION
       console.error(error.message)
     })
-    
-    // Update Weather
-    this.getWeather()
+  }
+
+  static getIconClass(weather) {
+    let prefix = weather[0].icon.endsWith("d")
+      ? `wi \xa0 wi-owm-day-`
+      : `wi \xa0 wi-owm-night-`
+    return `${prefix}${weather[0].id}`;
   }
 }
