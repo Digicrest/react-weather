@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import OpenWeather from '../apis/OpenWeather';
 import Loader from './Loader';
 
-function TinyWeatherTile({ weather, time }) {
+function WeatherTileSmall({ weather, time }) {
   const classes = useStyles();
   const [parsedWeather, setParsedWeather] = useState(null)
   useEffect(() => {
@@ -56,36 +56,13 @@ function TinyWeatherTile({ weather, time }) {
         {parsedWeather.temp}°C
       </Typography>
       <Typography variant='body2'>
-        Feels Like: {parsedWeather.feels_like}°C
+        {parsedWeather.feels_like}°C
       </Typography>
-      <Typography>
-        {parsedWeather.humidity}
-      </Typography>
-      <Typography>
-        {parsedWeather.pressure} hPa
-      </Typography>
-      <Typography>
-        {parsedWeather.wind} km/h
-      </Typography>
-
-      <div className={classes.row}>
-        <Card className={classes.subtile}>
-          <Typography>Sunrise</Typography>
-          <Typography>{parsedWeather.sunrise.date}</Typography>
-          <Typography>{parsedWeather.sunrise.time}</Typography>
-        </Card>
-
-        <Card className={classes.subtile}>
-          <Typography>Sunset</Typography>
-          <Typography>{parsedWeather.sunset.date}</Typography>
-          <Typography>{parsedWeather.sunset.time}</Typography>
-        </Card>      
-      </div>
     </Card>
   )
 }
 
-export default TinyWeatherTile
+export default WeatherTileSmall
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -93,6 +70,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(3),
     position: 'relative',
     width: 300,
+    minHeight: 150,
     padding: theme.spacing(2)
     // backgroundColor: theme.palette.primary.dark
   },

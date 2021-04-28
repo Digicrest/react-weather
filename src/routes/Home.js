@@ -1,30 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import { Button, makeStyles } from '@material-ui/core'
-import TinyWeatherTile from '../components/TinyWeatherTile';
+import React from 'react'
+import { makeStyles, Typography } from '@material-ui/core'
 
-function Home({ weather, onUpdateWeather, onUpdateLocation }) {
+function Home() {
   const classes = useStyles();
-  const [time, setTime] = useState(new Date())
-
-  useEffect(() => {
-    const trackTime = setInterval(() => setTime(new Date()), 1000)
-    return () => {
-      clearInterval(trackTime)
-    }
-  }, [])
 
   return (
     <div className={classes.root}>
       <div className={classes.header}>
-        <Button onClick={onUpdateLocation}>
-          Set Location
-        </Button>
-        <Button onClick={onUpdateWeather}>
-          {weather ? 'Update' : 'Fetch'} Weather
-        </Button>
+        <Typography>Home</Typography>
       </div>
       <div className={classes.content}>
-        <TinyWeatherTile weather={weather} time={time} />
+        <Typography>Content</Typography>
       </div>
     </div>
   )
